@@ -1,0 +1,8 @@
+application:
+  provide-port: 9999
+  name: provider
+  port: 8234
+
+register-center:
+  ip: 127.0.0.1
+  port: 7000

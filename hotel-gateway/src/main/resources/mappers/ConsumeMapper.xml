@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ysu.dao.ConsumeMapper">
+  <resultMap id="BaseResultMap" type="org.ysu.pojo.Consume">
+    <constructor>
+      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="no" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="room_number" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="goods_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="number" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="goods_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="consume_money" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="discount_rate" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="discount_money" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="sum_money" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="date" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="note" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, no, room_number, goods_name, number, goods_price, consume_money, discount_rate, 
+    discount_money, sum_money, user_id, date, note
+  </sql>
+  <select id="selectByExample" parameterType="org.ysu.pojo.ConsumeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from consume
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="org.ysu.pojo.ConsumeExample">
+    delete from consume
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.ysu.pojo.Consume">
+    insert into consume (id, no, room_number, 
+      goods_name, number, goods_price, 
+      consume_money, discount_rate, discount_money, 
+      sum_money, user_id, date, 
+      note)
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{roomNumber,jdbcType=VARCHAR}, 
+      #{goodsName,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, #{goodsPrice,jdbcType=DECIMAL}, 
+      #{consumeMoney,jdbcType=DECIMAL}, #{discountRate,jdbcType=DECIMAL}, #{discountMoney,jdbcType=DECIMAL}, 
+      #{sumMoney,jdbcType=DECIMAL}, #{userId,jdbcType=INTEGER}, #{date,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.ysu.pojo.Consume">
+    insert into consume
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="no != null">
+        no,
+      </if>
+      <if test="roomNumber != null">
+        room_number,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="consumeMoney != null">
+        consume_money,
+      </if>
+      <if test="discountRate != null">
+        discount_rate,
+      </if>
+      <if test="discountMoney != null">
+        discount_money,
+      </if>
+      <if test="sumMoney != null">
+        sum_money,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null">
+        #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="consumeMoney != null">
+        #{consumeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="discountRate != null">
+        #{discountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="discountMoney != null">
+        #{discountMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="sumMoney != null">
+        #{sumMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.ysu.pojo.ConsumeExample" resultType="java.lang.Long">
+    select count(*) from consume
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update consume
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.no != null">
+        no = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomNumber != null">
+        room_number = #{record.roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsName != null">
+        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null">
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsPrice != null">
+        goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.consumeMoney != null">
+        consume_money = #{record.consumeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discountRate != null">
+        discount_rate = #{record.discountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discountMoney != null">
+        discount_money = #{record.discountMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sumMoney != null">
+        sum_money = #{record.sumMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.note != null">
+        note = #{record.note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update consume
+    set id = #{record.id,jdbcType=INTEGER},
+      no = #{record.no,jdbcType=VARCHAR},
+      room_number = #{record.roomNumber,jdbcType=VARCHAR},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=INTEGER},
+      goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+      consume_money = #{record.consumeMoney,jdbcType=DECIMAL},
+      discount_rate = #{record.discountRate,jdbcType=DECIMAL},
+      discount_money = #{record.discountMoney,jdbcType=DECIMAL},
+      sum_money = #{record.sumMoney,jdbcType=DECIMAL},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=VARCHAR},
+      note = #{record.note,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

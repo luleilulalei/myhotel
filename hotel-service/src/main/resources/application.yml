@@ -1,0 +1,10 @@
+application:
+  name: starter  # 应用名称
+  port: 6666  # http服务端口
+
+provider:
+  port: 7777  # 生产者监听端口
+
+center:
+  ip: 127.0.0.1  # 注册中心ip
+  port: 9999  # 注册中心端口

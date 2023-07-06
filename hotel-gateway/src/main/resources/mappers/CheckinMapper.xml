@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ysu.dao.CheckinMapper">
+  <resultMap id="BaseResultMap" type="org.ysu.pojo.Checkin">
+    <constructor>
+      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="no" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="room_number" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="room_type_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="standard_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="discount_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="deposit" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="customer_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="card_type" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="card_number" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="arrive_time" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="leave_time" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="customer_size" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="customer_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="customer_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="breakfast_or_not" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="remind_or_not" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="note" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, no, room_number, room_type_id, standard_price, discount_price, deposit, customer_name, 
+    card_type, card_number, phone, arrive_time, leave_time, customer_size, user_id, customer_id, 
+    customer_price, breakfast_or_not, remind_or_not, note
+  </sql>
+  <select id="selectByExample" parameterType="org.ysu.pojo.CheckinExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from checkin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="org.ysu.pojo.CheckinExample">
+    delete from checkin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.ysu.pojo.Checkin">
+    insert into checkin (id, no, room_number, 
+      room_type_id, standard_price, discount_price, 
+      deposit, customer_name, card_type, 
+      card_number, phone, arrive_time, 
+      leave_time, customer_size, user_id, 
+      customer_id, customer_price, breakfast_or_not, 
+      remind_or_not, note)
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{roomNumber,jdbcType=VARCHAR}, 
+      #{roomTypeId,jdbcType=INTEGER}, #{standardPrice,jdbcType=DECIMAL}, #{discountPrice,jdbcType=DECIMAL}, 
+      #{deposit,jdbcType=DECIMAL}, #{customerName,jdbcType=VARCHAR}, #{cardType,jdbcType=INTEGER}, 
+      #{cardNumber,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{arriveTime,jdbcType=VARCHAR}, 
+      #{leaveTime,jdbcType=VARCHAR}, #{customerSize,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{customerId,jdbcType=INTEGER}, #{customerPrice,jdbcType=DECIMAL}, #{breakfastOrNot,jdbcType=INTEGER}, 
+      #{remindOrNot,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.ysu.pojo.Checkin">
+    insert into checkin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="no != null">
+        no,
+      </if>
+      <if test="roomNumber != null">
+        room_number,
+      </if>
+      <if test="roomTypeId != null">
+        room_type_id,
+      </if>
+      <if test="standardPrice != null">
+        standard_price,
+      </if>
+      <if test="discountPrice != null">
+        discount_price,
+      </if>
+      <if test="deposit != null">
+        deposit,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="cardType != null">
+        card_type,
+      </if>
+      <if test="cardNumber != null">
+        card_number,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="arriveTime != null">
+        arrive_time,
+      </if>
+      <if test="leaveTime != null">
+        leave_time,
+      </if>
+      <if test="customerSize != null">
+        customer_size,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="customerPrice != null">
+        customer_price,
+      </if>
+      <if test="breakfastOrNot != null">
+        breakfast_or_not,
+      </if>
+      <if test="remindOrNot != null">
+        remind_or_not,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null">
+        #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="roomTypeId != null">
+        #{roomTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="standardPrice != null">
+        #{standardPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null">
+        #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="deposit != null">
+        #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null">
+        #{cardType,jdbcType=INTEGER},
+      </if>
+      <if test="cardNumber != null">
+        #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveTime != null">
+        #{arriveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveTime != null">
+        #{leaveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="customerSize != null">
+        #{customerSize,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerPrice != null">
+        #{customerPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="breakfastOrNot != null">
+        #{breakfastOrNot,jdbcType=INTEGER},
+      </if>
+      <if test="remindOrNot != null">
+        #{remindOrNot,jdbcType=INTEGER},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.ysu.pojo.CheckinExample" resultType="java.lang.Long">
+    select count(*) from checkin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update checkin
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.no != null">
+        no = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomNumber != null">
+        room_number = #{record.roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomTypeId != null">
+        room_type_id = #{record.roomTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.standardPrice != null">
+        standard_price = #{record.standardPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discountPrice != null">
+        discount_price = #{record.discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deposit != null">
+        deposit = #{record.deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardType != null">
+        card_type = #{record.cardType,jdbcType=INTEGER},
+      </if>
+      <if test="record.cardNumber != null">
+        card_number = #{record.cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arriveTime != null">
+        arrive_time = #{record.arriveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaveTime != null">
+        leave_time = #{record.leaveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerSize != null">
+        customer_size = #{record.customerSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerId != null">
+        customer_id = #{record.customerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerPrice != null">
+        customer_price = #{record.customerPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.breakfastOrNot != null">
+        breakfast_or_not = #{record.breakfastOrNot,jdbcType=INTEGER},
+      </if>
+      <if test="record.remindOrNot != null">
+        remind_or_not = #{record.remindOrNot,jdbcType=INTEGER},
+      </if>
+      <if test="record.note != null">
+        note = #{record.note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update checkin
+    set id = #{record.id,jdbcType=INTEGER},
+      no = #{record.no,jdbcType=VARCHAR},
+      room_number = #{record.roomNumber,jdbcType=VARCHAR},
+      room_type_id = #{record.roomTypeId,jdbcType=INTEGER},
+      standard_price = #{record.standardPrice,jdbcType=DECIMAL},
+      discount_price = #{record.discountPrice,jdbcType=DECIMAL},
+      deposit = #{record.deposit,jdbcType=DECIMAL},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      card_type = #{record.cardType,jdbcType=INTEGER},
+      card_number = #{record.cardNumber,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      arrive_time = #{record.arriveTime,jdbcType=VARCHAR},
+      leave_time = #{record.leaveTime,jdbcType=VARCHAR},
+      customer_size = #{record.customerSize,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      customer_id = #{record.customerId,jdbcType=INTEGER},
+      customer_price = #{record.customerPrice,jdbcType=DECIMAL},
+      breakfast_or_not = #{record.breakfastOrNot,jdbcType=INTEGER},
+      remind_or_not = #{record.remindOrNot,jdbcType=INTEGER},
+      note = #{record.note,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="selectList" resultType="org.ysu.entity.dto.CheckInWithRoomTypeDto">
+    SELECT * FROM checkin
+    LEFT JOIN
+    (select `id` as `roomtype_id`, `name` as `room_type_name` from roomtype) A
+    ON checkin.room_type_id=A.roomtype_id;
+  </select>
+</mapper>

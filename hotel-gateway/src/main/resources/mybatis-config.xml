@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <properties resource="db.properties"></properties>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.user}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>   <!-- 映射文件 -->
+    <mappers>
+        <mapper resource="mappers/CheckinMapper.xml"/>
+        <mapper resource="mappers/CheckoutMapper.xml"/>
+        <mapper resource="mappers/ConsumeMapper.xml"/>
+        <mapper resource="mappers/CustomerMapper.xml"/>
+        <mapper resource="mappers/FloorMapper.xml"/>
+        <mapper resource="mappers/GoodsMapper.xml"/>
+        <mapper resource="mappers/GoodsTypeMapper.xml"/>
+        <mapper resource="mappers/LogMapper.xml"/>
+        <mapper resource="mappers/RoomMapper.xml"/>
+        <mapper resource="mappers/RoomReserveMapper.xml"/>
+        <mapper resource="mappers/RoomtypeMapper.xml"/>
+        <mapper resource="mappers/UserMapper.xml"/>
+    </mappers>
+</configuration>
